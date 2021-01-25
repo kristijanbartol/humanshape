@@ -1,8 +1,10 @@
 # Linux settings.
-MATLAB_HOME = /usr/lib/matlab-8.4/
+#MATLAB_HOME = /usr/lib/matlab-8.4/
+MATLAB_HOME = /home/kristijan/MATLAB/R2019b/
 MEX         = $(MATLAB_HOME)/bin/mex
 MEXSUFFIX   = mexa64
-CXX         = g++-4.7
+#CXX         = g++-4.7
+CXX         = g++
 CFLAGS      = -O3 -fPIC -pthread 
 
 TARGET = rigidAlign.$(MEXSUFFIX)

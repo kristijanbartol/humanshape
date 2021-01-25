@@ -60,10 +60,12 @@ global E_SMOOTH;
 global E_LM;
 
 %% separate landmarks for the head and hands
-LM_TL_IDX = template.landmarksIdxs(scan.landmarkIdxs);
+%LM_TL_IDX = template.landmarksIdxs(scan.landmarkIdxs);
+LM_TL_IDX = template.landmarksIdxs;
 NUM_SC_POINTS = size(scan.points,1);
 
-NUM_LM = size(scan.landmarks(scan.landmarkIdxs,:),1);
+%NUM_LM = size(scan.landmarks(scan.landmarkIdxs,:),1);
+NUM_LM = size(scan.landmarks,1);
 NUM_TL_POINTS = size(template.points,1);
 
 % head and hand vertex idxs
@@ -92,7 +94,8 @@ for i=1:NUM_TL_POINTS
 end
 
 for i = 1:NUM_LM
-    LM_SC = cat(3,LM_SC,[scan.landmarks(scan.landmarkIdxs(i),:) 1]');
+%    LM_SC = cat(3,LM_SC,[scan.landmarks(scan.landmarkIdxs(i),:) 1]');
+    LM_SC = cat(3,LM_SC,[scan.landmarks(i,:) 1]');
     LM_TL = cat(3,LM_TL,[template.points(LM_TL_IDX(i,1),:) 1]');
 end
 

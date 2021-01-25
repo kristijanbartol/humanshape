@@ -20,7 +20,9 @@ function p = expParams(expidx)
 p = [];
 
 % root directory of code
-p.rootDir = '/home/leonid/code/humanshape/';
+%p.rootDir = '/home/leonid/code/humanshape/';
+p.rootDir = '/home/kristijan/phd/humanshape/';
+
 
 % landmarks used to fit the model
 p.landmarksSM = {[p.rootDir 'fitting/landmarksIdxs73.mat']};

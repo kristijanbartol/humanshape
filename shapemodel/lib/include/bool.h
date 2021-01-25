@@ -16,7 +16,7 @@
 #undef TRUE
 #undef true
 #undef false
-enum bool { FALSE = 0, false = 0, TRUE = 1, true = 1 };
+//enum bool { FALSE = 0, false = 0, TRUE = 1, true = 1 };
 #endif
 
 #endif

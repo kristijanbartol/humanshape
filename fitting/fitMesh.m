@@ -55,7 +55,7 @@ end
 
 % print parameters
 fprintf('scanFilename: %s\n',scanFilenames{1});
-fprintf('landmarksFilename: %s\n',landmarksScanFilename{1});
+%fprintf('landmarksFilename: %s\n',landmarksScanFilename{1});
 fprintf('saveDir: %s\n',saveDir{1});
 fprintf('modelDir: %s\n',p.modelInDir);
 fprintf('bInit: %d\n',p.bInit);
@@ -64,6 +64,10 @@ fprintf('nPCA: %d\n',p.nPCA);
 
 % read landmarks
 [scan,template] = readLandMarksAll(landmarksScanFilename,p.landmarksSM);
+
+%scan.landmarks = [];
+%template = [];
+%template(i).landmarksIdxs = [];
 
 % prepare template
 load(p.facesSM,'faces');
@@ -84,8 +88,17 @@ for i = 1:length(template)
     template(i).nPCA = p.nPCA;
 end
 
+% store template as OBJ mesh to extract corresponding landmarks
+%DT = delaunay(template(1).points(:,1), template(1).points(:,2), template(1).points(:,3));
+%DT = delaunay(template(1).points);
+%trimesh(DT, template(1).points(:,1), template(1).points(:,2), template(1).points(:,3));
+pc = pointCloud(points);
+pcwrite(pc,'tmp.ply');
+
 % prepare scan
 scan = prepareScan(scan,scanFilenames);
+fprintf('%d\n', length(scan));
+fprintf('%d\n', length(template));
 assert(length(scan) == length(template));
 
 for i=1:length(scan)

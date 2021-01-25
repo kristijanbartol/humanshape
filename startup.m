@@ -4,5 +4,7 @@ if (~isdeployed)
     addpath([pwd '/fitting/']);
     addpath([pwd '/learning/']);
     addpath([pwd '/evaluation/']);
-    addpath([pwd '/evaluation/statQuality/']);
+    addpath([pwd '/evaluation/statQuality/']); 
+    addpath([pwd '/obj/']); 
+    addpath([pwd '/experiments/']); 
 end
