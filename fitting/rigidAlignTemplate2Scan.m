@@ -18,9 +18,7 @@
 
 function scan = rigidAlignTemplate2Scan(scan,template)
 
-%regParams = absor(template.points(template.landmarksIdxs(scan.landmarkIdxs),:)',scan.landmarks(scan.landmarkIdxs,:)','doScale',true);
-%regParams = absor(template.points(template.landmarksIdxs,:)',scan.landmarks(scan.landmarkIdxs,:)','doScale',true);
-regParams = absor(template.points(template.landmarksIdxs,:)',scan.landmarks','doScale',true);
+regParams = absor(template.points(template.landmarksIdxs(scan.landmarkIdxs),:)',scan.landmarks(scan.landmarkIdxs,:)','doScale',true);
 
 % template.points = points';
 % template.points = template.points*regParams.R*regParams.s;

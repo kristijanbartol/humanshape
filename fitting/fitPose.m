@@ -23,10 +23,8 @@ if (nargin < 4)
     bScale = true;
 end
 
-%landmarksScan = scan.landmarks(scan.landmarkIdxs,:);
-landmarksScan = scan.landmarks;
-%landmarksIdxsSM = template.landmarksIdxs(scan.landmarkIdxs);
-landmarksIdxsSM = template.landmarksIdxs;
+landmarksScan = scan.landmarks(scan.landmarkIdxs,:);
+landmarksIdxsSM = template.landmarksIdxs(scan.landmarkIdxs);
 
 %% optimization options
 [options,poseLB,poseUB] = getOptionsOptimizer(modelDir,template);

@@ -20,18 +20,9 @@ function vertexFaces = getVertexFaces(vertexIdx, facesAll)
 
 vertexFaces = [];
 
-%vertexFaces = vertcat(vertexFaces,find(facesAll(:,1)==vertexIdx));
-%vertexFaces = vertcat(vertexFaces,find(facesAll(:,2)==vertexIdx));
-%vertexFaces = vertcat(vertexFaces,find(facesAll(:,3)==vertexIdx));
-try
-    vertexFaces = vertcat(vertexFaces,facesAll.v(find(facesAll.v(:,1)==vertexIdx)));
-    vertexFaces = vertcat(vertexFaces,facesAll.v(find(facesAll.v(:,2)==vertexIdx)));
-    vertexFaces = vertcat(vertexFaces,facesAll.v(find(facesAll.v(:,3)==vertexIdx)));
-catch
-    vertexFaces = vertcat(vertexFaces,find(facesAll(:,1)==vertexIdx));
-    vertexFaces = vertcat(vertexFaces,find(facesAll(:,2)==vertexIdx));
-    vertexFaces = vertcat(vertexFaces,find(facesAll(:,3)==vertexIdx));
-end
+vertexFaces = vertcat(vertexFaces,find(facesAll(:,1)==vertexIdx));
+vertexFaces = vertcat(vertexFaces,find(facesAll(:,2)==vertexIdx));
+vertexFaces = vertcat(vertexFaces,find(facesAll(:,3)==vertexIdx));
 
 vertexFaces = vertexFaces';
 

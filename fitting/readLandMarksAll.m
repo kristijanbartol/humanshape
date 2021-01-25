@@ -18,43 +18,44 @@
 
 function [scan,template,bIsBad] = readLandMarksAll(landmarksScanFilenames,landmarksSMFilenames)
 
-%[~,~,ext] = fileparts(landmarksScanFilenames{1});
-%if (strcmp(ext,'.mat'))
-%    load(landmarksScanFilenames{1},'landmarks');
-%else
-%    landmarks = readLandmarks(landmarksScanFilenames{1});
-%end
+[~,~,ext] = fileparts(landmarksScanFilenames{1});
+if (strcmp(ext,'.mat'))
+    load(landmarksScanFilenames{1},'landmarks');
+else
+    landmarks = readLandmarks(landmarksScanFilenames{1});
+end
 
-%nLandmarks = min(size(landmarks,1),73);
-%landmarks = landmarks(1:nLandmarks,:);
+nLandmarks = min(size(landmarks,1),73);
+landmarks = landmarks(1:nLandmarks,:);
 
-%assert(length(landmarksScanFilenames) == length(landmarksSMFilenames));
+assert(length(landmarksScanFilenames) == length(landmarksSMFilenames));
 
 % CAESAR: use first 72 landmarks
-%if nLandmarks == 73
-%    nLandmarksUse = 72;
-%else
-%    nLandmarksUse = nLandmarks;
-%end
+if nLandmarks == 73
+    nLandmarksUse = 72;
+else
+    nLandmarksUse = nLandmarks;
+end
 
-%bIsBad = true(nLandmarks,1);
-%bIsBad(1:nLandmarksUse) = false;
+bIsBad = true(nLandmarks,1);
+bIsBad(1:nLandmarksUse) = false;
 
 scan.landmarks = [];
 
-%for i = 1:length(landmarksScanFilenames)
-%    if (strcmp(ext,'.mat'))
-        load('./fitting/landmarkIdxsScan.mat','landmarkIdxsScan');
-%    else
-%        landmarks = readLandmarks(landmarksScanFilenames{i});
-%    end
+for i = 1:length(landmarksScanFilenames)
+    if (strcmp(ext,'.mat'))
+        load(landmarksScanFilenames{i},'landmarks');
+    else
+        landmarks = readLandmarks(landmarksScanFilenames{i});
+    end
     
-    load('./fitting/landmarkIdxsTemp.mat','landmarkIdxsTemp');
-    template(1).landmarksIdxs = landmarkIdxsTemp;
+    load(landmarksSMFilenames{i},'landmarksIdxs');
+    template(i).landmarksIdxs = landmarksIdxs;
 
-%    landmarks = landmarks(1:nLandmarks,:);
-    scan(1).landmarkIdxs = landmarkIdxsScan;
-%    scan(1).landmarkIdxs = find(~isnan(scan(i).landmarks(:,1)) & ~isnan(template(i).landmarksIdxs));
-%end
+    landmarks = landmarks(1:nLandmarks,:);
+    landmarks = m2mm(landmarks);
+    scan(i).landmarks = landmarks;
+    scan(i).landmarkIdxs = find(~isnan(scan(i).landmarks(:,1)) & ~isnan(template(i).landmarksIdxs));
+end
 
 end

@@ -25,10 +25,8 @@ for i = 1:length(scanFilenames)
     %% read scan
     [~,~,ext] = fileparts(scanFilenames{1});
     if (strcmp(ext,'.obj'))
-%        [pointsAllScan,facesScan] = read_obj(scanFilenames{i});
-        obj = readObj(scanFilenames{i});
-%        confidenceScan = ones(size(facesScan,1),1);
-        confidenceScan = ones(size(obj.v,1),1);
+        [pointsAllScan,facesScan] = read_obj(scanFilenames{i});
+        confidenceScan = ones(size(pointsAllScan,1),1);
     elseif (strcmp(ext,'.mat'))
         load(scanFilenames{i});
         assert(exist('points','var')>0);
@@ -42,11 +40,10 @@ for i = 1:length(scanFilenames)
         [pointsAllScan,confidenceScan,facesScan] = read_ply(scanFilenames{i});
     end
     
-    pointsAllScan = m2mm(obj.v);
+    pointsAllScan = m2mm(pointsAllScan);
     
     %% subsample scan
-%    nPointsSample = 16000;
-%    nPointsSample = 12500;
+%     nPointsSample = 16000;
     nPointsSample = min(6449*3,size(pointsAllScan,1));
     fprintf('nPointsSample: %d/%d\n',nPointsSample,size(pointsAllScan,1));
     
@@ -57,16 +54,13 @@ for i = 1:length(scanFilenames)
     points = pointsAllScan(pointsIdxsScan(1:nPointsSample),:);
     
     %% compute normals
-    %normalsScan = getNormals(pointsAllScan,obj.f);
-    normalsScan = obj.vn;
+    normalsScan = getNormals(pointsAllScan,facesScan);
     
     scan(i).points = points;
     scan(i).normals = normalsScan;
-    scan(i).faces = obj.f;
+    scan(i).faces = facesScan;
     scan(i).confidence = confidenceScan;
     scan(i).pointsIdxs = pointsIdxsScan;
-    
-    scan(i).landmarks = scan(i).points(scan.landmarkIdxs,:);
 end
 
 end

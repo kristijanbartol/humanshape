@@ -26,11 +26,9 @@ for i = 1:length(labels)
     labels{i} = num2str(i);
 end
 
-%landmarksScan = scan.landmarks(scan.landmarkIdxs,:);
-landmarksScan = scan.landmarks;
-%landmarksTemplate = template.points(template.landmarksIdxs(scan.landmarkIdxs),:);
-landmarksTemplate = template.points(template.landmarksIdxs,:);
-%labels = labels(scan.landmarkIdxs);
+landmarksScan = scan.landmarks(scan.landmarkIdxs,:);
+landmarksTemplate = template.points(template.landmarksIdxs(scan.landmarkIdxs),:);
+labels = labels(scan.landmarkIdxs);
 
 clf;
 plot3(landmarksScan(:,1),landmarksScan(:,2),landmarksScan(:,3),'g+','markerSize',12); hold on;
